@@ -1,0 +1,20 @@
+services:
+  db:
+    image: mongo:latest
+    container_name: coffee-counter-db
+    ports:
+      - "27017:27017" # Uncomment if you want to expose MongoDB to the host
+    volumes:
+      - coffee_counter_db_data:/data/db
+    # environment:
+      # - MONGO_INITDB_ROOT_USERNAME= optional -> has to be included in the backend env variable if you use it
+      # - MONGO_INITDB_ROOT_PASSWORD= optional -> has to be included in the backend env variable if you use it
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  coffee_counter_db_data:
