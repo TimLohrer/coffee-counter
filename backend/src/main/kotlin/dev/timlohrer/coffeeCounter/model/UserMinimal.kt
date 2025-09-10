@@ -12,10 +12,10 @@ data class UserMinimal(
     @Contextual
     @SerialName("_id")
     @Serializable(with = ObjectIdSerializer::class)
-    val id: ObjectId = ObjectId.get(),
-    val firstName: String,
-    val lastName: String,
+    val id: ObjectId,
+    val name: String,
     val isAdmin: Boolean,
+    val createdAt: Long,
 ) {
     suspend fun toFull(): User {
         return UserManager.getById(this.id)!!

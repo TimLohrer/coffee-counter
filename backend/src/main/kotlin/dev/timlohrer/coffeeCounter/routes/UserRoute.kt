@@ -22,15 +22,13 @@ import org.bson.types.ObjectId
 data class CreateUserRequest(
     val email: String,
     val password: String,
-    val firstName: String,
-    val lastName: String,
-    val isAdmin: Boolean = false,
+    val name: String
 )
 
 @Serializable
 data class UpdateUserRequest(
-    val firstName: String?,
-    val lastName: String?,
+    val email: String?,
+    val name: String?,
 )
 
 object UserRouter {
@@ -43,7 +41,7 @@ object UserRouter {
                     return@post call.respond(HttpStatusCode.Forbidden, "User with this email already exists!")
                 }
                 
-                val user = UserManager.createUser(data.email, data.password, data.firstName, data.lastName)
+                val user = UserManager.createUser(data.email, data.password, data.name)
                 call.respond(user.toMinimal())
             }
             
@@ -57,8 +55,8 @@ object UserRouter {
                 }
                 
                 val updatedUser = user.copy(
-                    firstName = data.firstName ?: user.firstName,
-                    lastName = data.lastName ?: user.lastName,
+                    name = data.name ?: user.name,
+                    email = data.email ?: user.email,
                 )
 
                 updatedUser.update()

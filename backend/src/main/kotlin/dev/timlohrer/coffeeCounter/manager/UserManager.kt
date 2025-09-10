@@ -23,12 +23,11 @@ object UserManager {
         return BCrypt.checkpw(password, this.passwordHash)
     }
     
-    suspend fun createUser(email: String, password: String, firtName: String, lastName: String): User {
+    suspend fun createUser(email: String, password: String, name: String): User {
         val salt = BCrypt.gensalt(10)
         val user = User(
             email = email,
-            firstName = firtName,
-            lastName = lastName,
+            name = name,
             passwordHash = BCrypt.hashpw(password, salt),
             salt = salt,
         )

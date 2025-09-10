@@ -19,7 +19,6 @@ import io.ktor.server.routing.routing
 import kotlinx.serialization.json.Json
 
 val isLocal = System.getenv("IS_LOCAL").toBoolean()
-val isDevelopment = System.getenv("IS_DEVELOPMENT").toBoolean()
 val API_VERSION = 1
 
 fun main() {

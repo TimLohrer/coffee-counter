@@ -16,8 +16,7 @@ data class User(
     var token: String? = null,
     var email: String,
     var emailVerified: Boolean = false,
-    var firstName: String,
-    var lastName: String,
+    var name: String,
     var passwordHash: String,
     var salt: String,
     var disabled: Boolean = false,
@@ -27,9 +26,9 @@ data class User(
     fun toMinimal(): UserMinimal {
         return UserMinimal(
             id = this.id,
-            firstName = this.firstName,
-            lastName = this.lastName,
+            name = this.name,
             isAdmin = this.isAdmin,
+            createdAt = this.createdAt,
         )
     }
 }
