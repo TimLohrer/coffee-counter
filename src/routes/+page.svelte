@@ -1,5 +1,10 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/core";
+  import { onMount } from "svelte";
+
+  onMount(() => {
+    window.location.href = "/setup";
+  })
 </script>
 
 <main class="container">
