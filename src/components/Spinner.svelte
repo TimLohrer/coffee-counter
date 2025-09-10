@@ -1,0 +1,29 @@
+<script lang="ts">
+    export let size: string = "30px";
+</script>
+
+<div style="width: {size}; height: {size};">
+    <span class="loader"></span>
+</div>
+
+<style>
+    .loader {
+        width: 100%;
+        height: 100%;
+        border: 2.75px solid #FFF;
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    } 
+</style>

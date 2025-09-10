@@ -1,7 +1,10 @@
-use crate::{models::{dto::login_response::LoginResponse, user::User}, utils::api_client::ApiClient};
+use crate::{
+    models::{dto::login_response::LoginResponse, user::User},
+    utils::api_client::ApiClient,
+};
 
-pub mod utils;
 pub mod models;
+pub mod utils;
 
 use std::sync::Mutex;
 
@@ -12,18 +15,25 @@ lazy_static::lazy_static! {
 
 #[tauri::command]
 async fn set_backend_url(url: &str) -> Result<bool, ()> {
-    match ApiClient::from_url(&format!("{url}/api/v1")).is_online().await {
+    match ApiClient::from_url(url)
+        .is_online()
+        .await
+    {
         true => {
             let mut base_url = BASE_URL.lock().unwrap();
             *base_url = url.to_string();
             Ok(true)
-        },
+        }
         false => Ok(false),
     }
 }
 
 #[tauri::command]
 async fn create_account(email: &str, name: &str, password: &str) -> Result<User, String> {
+    println!(
+        "Creating account with email: {} {} {}",
+        email, name, password
+    );
     ApiClient::new()
         .create_account(email, name, password)
         .await
@@ -32,6 +42,7 @@ async fn create_account(email: &str, name: &str, password: &str) -> Result<User,
 
 #[tauri::command]
 async fn login(email: &str, password: &str) -> Result<LoginResponse, String> {
+    println!("Logging in with email: {} {}", email, password);
     ApiClient::new()
         .login(email, password)
         .await
@@ -41,7 +52,9 @@ async fn login(email: &str, password: &str) -> Result<LoginResponse, String> {
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_log::Builder::new().build())
         .plugin(tauri_plugin_opener::init())
+        .plugin(tauri_plugin_log::Builder::new().build())
         .invoke_handler(tauri::generate_handler![
             set_backend_url,
             create_account,

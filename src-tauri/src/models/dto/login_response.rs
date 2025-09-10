@@ -7,4 +7,4 @@ use crate::models::user::User;
 pub struct LoginResponse {
     pub user: User,
     pub token: String,
- }
+}
