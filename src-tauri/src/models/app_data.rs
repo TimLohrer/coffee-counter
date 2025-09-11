@@ -14,7 +14,7 @@ impl AppData {
         AppData {
             backend_url,
             token,
-            user
+            user,
         }
     }
 
@@ -27,14 +27,18 @@ impl AppData {
     }
 
     pub fn from_json(value: &serde_json::Value) -> Self {
-        let backend_url = value.get("backendUrl").and_then(|v| v.as_str().map(String::from));
-        let token = value.get("token").and_then(|v| v.as_str().map(String::from));
+        let backend_url = value
+            .get("backendUrl")
+            .and_then(|v| v.as_str().map(String::from));
+        let token = value
+            .get("token")
+            .and_then(|v| v.as_str().map(String::from));
         let user = value.get("user").and_then(|v| User::from_json(v).into());
 
         AppData {
             backend_url,
             token,
-            user
+            user,
         }
     }
 }

@@ -40,5 +40,15 @@
       "minSdkVersion": 24,
       "versionCode": 1
     }
+  },
+  "plugins": {
+    "deep-link": {
+      "mobile": [
+        {
+          "scheme": ["cfecntr"],
+          "appLink": false
+        }
+      ]
+    }
   }
 }

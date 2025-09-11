@@ -14,10 +14,12 @@
   "license": "ARR",
   "dependencies": {
     "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-deep-link": "~2",
     "@tauri-apps/plugin-log": "~2",
     "@tauri-apps/plugin-opener": "^2",
     "@tauri-apps/plugin-store": "~2",
-    "flowbite-svelte": "^1.13.8"
+    "flowbite-svelte": "^1.13.8",
+    "svelte-bottom-sheet": "^2.2.2"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.6",

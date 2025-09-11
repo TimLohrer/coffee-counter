@@ -30,9 +30,18 @@ impl User {
     }
 
     pub fn from_json(value: &serde_json::Value) -> Self {
-        let id = value.get("_id").and_then(|v| v.as_str().map(String::from)).unwrap_or_default();
-        let name = value.get("name").and_then(|v| v.as_str().map(String::from)).unwrap_or_default();
-        let is_admin = value.get("isAdmin").and_then(|v| v.as_bool()).unwrap_or(false);
+        let id = value
+            .get("_id")
+            .and_then(|v| v.as_str().map(String::from))
+            .unwrap_or_default();
+        let name = value
+            .get("name")
+            .and_then(|v| v.as_str().map(String::from))
+            .unwrap_or_default();
+        let is_admin = value
+            .get("isAdmin")
+            .and_then(|v| v.as_bool())
+            .unwrap_or(false);
         let created_at = value.get("createdAt").and_then(|v| v.as_u64()).unwrap_or(0);
 
         User {
