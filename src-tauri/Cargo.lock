@@ -586,6 +586,7 @@ dependencies = [
 name = "coffee-counter"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "lazy_static",
  "reqwest",
  "serde",
