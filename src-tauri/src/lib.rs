@@ -15,10 +15,7 @@ lazy_static::lazy_static! {
 
 #[tauri::command]
 async fn set_backend_url(url: &str) -> Result<bool, ()> {
-    match ApiClient::from_url(url)
-        .is_online()
-        .await
-    {
+    match ApiClient::from_url(url).is_online().await {
         true => {
             let mut base_url = BASE_URL.lock().unwrap();
             *base_url = url.to_string();
@@ -52,6 +49,7 @@ async fn login(email: &str, password: &str) -> Result<LoginResponse, String> {
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_store::Builder::new().build())
         .plugin(tauri_plugin_log::Builder::new().build())
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_log::Builder::new().build())
